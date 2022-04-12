@@ -11,14 +11,16 @@ def start_user_interface():
         mainWindow.geometry("800x600")
         mainWindow.resizable(width=True, height=True)
 
-        panel = tkinter.Label(mainWindow)
+        nullImage = tkinter.PhotoImage()
+        panel = tkinter.Label(mainWindow, image=nullImage, compound=tkinter.CENTER, width=256, height=256)
 
         selectImageButton = tkinter.Button(master=mainWindow,
                                            text="Select Image",
                                            width=15,
                                            command=lambda: algorithms.file_parser.open_image(panel))
+        panel.pack(pady=24)
+        panel.pack_propagate(False)
         selectImageButton.pack(pady=24)
-        panel.pack()
 
         create_algorithm_buttons(mainWindow)
 
