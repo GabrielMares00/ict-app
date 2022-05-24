@@ -2,27 +2,26 @@ import algorithms.file_parser
 import tkinter
 
 from user_interface.algorithm_buttons import create_algorithm_buttons
+from user_interface.image_selector import create_image_selector_frame
 
 
 def start_user_interface():
     try:
         mainWindow = tkinter.Tk()
         mainWindow.title("ict-app")
-        mainWindow.geometry("800x600")
+        mainWindow.geometry("800x800")
         mainWindow.resizable(width=True, height=True)
 
-        nullImage = tkinter.PhotoImage()
-        panel = tkinter.Label(mainWindow, image=nullImage, compound=tkinter.CENTER, width=256, height=256)
+        imageSelectionFrame = tkinter.LabelFrame(mainWindow, height=400, labelanchor=tkinter.NW, text="Image")
+        create_image_selector_frame(imageSelectionFrame)
+        imageSelectionFrame.pack(side=tkinter.TOP, pady=32)
 
-        selectImageButton = tkinter.Button(master=mainWindow,
-                                           text="Select Image",
-                                           width=15,
-                                           command=lambda: algorithms.file_parser.open_image(panel))
-        panel.pack(pady=24)
-        panel.pack_propagate(False)
-        selectImageButton.pack(pady=24)
+        selectionFrame = tkinter.Frame(mainWindow, height=400)
+        create_algorithm_buttons(selectionFrame)
+        selectionFrame.pack(side=tkinter.TOP, pady=32)
 
-        create_algorithm_buttons(mainWindow)
+        performButton = tkinter.Button(mainWindow, width=18, text="Perform Compression")
+        performButton.pack(side=tkinter.BOTTOM, pady=32)
 
         mainWindow.mainloop()
     except KeyboardInterrupt:
