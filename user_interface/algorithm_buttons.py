@@ -9,7 +9,7 @@ resizeImageButtons = []
 
 
 def create_algorithm_buttons(mainWindow: tkinter.Frame):
-    currentSelectedAlgorithmsCategory = tkinter.StringVar(mainWindow, "1")
+    currentSelectedAlgorithmsCategory = tkinter.StringVar(mainWindow)
     create_algorithm_category_radio_buttons_for_selection(mainWindow, currentSelectedAlgorithmsCategory)
 
     algorithmsLabelFrame = tkinter.LabelFrame(mainWindow, labelanchor=tkinter.NW, text="Algorithms")
@@ -17,9 +17,10 @@ def create_algorithm_buttons(mainWindow: tkinter.Frame):
     algorithmsLabelFrame.pack(side=tkinter.BOTTOM, pady=32)
 
 
-def hide_lossy_show_lossless():
+def hide_lossy_show_lossless(radioValue):
     if not hasattr(main, "currentImage"):
         warning_no_image_selected()
+        radioValue.set(0)
     else:
         for button in lossyAlgorithmButtons:
             button.pack_forget()
@@ -29,9 +30,10 @@ def hide_lossy_show_lossless():
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
 
 
-def hide_lossless_show_lossy():
+def hide_lossless_show_lossy(radioValue):
     if not hasattr(main, "currentImage"):
         warning_no_image_selected()
+        radioValue.set(0)
     else:
         for button in losslessAlgorithmButtons:
             button.pack_forget()
@@ -41,9 +43,10 @@ def hide_lossless_show_lossy():
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
 
 
-def hide_compressions_show_resizes():
+def hide_compressions_show_resizes(radioValue):
     if not hasattr(main, "currentImage"):
         warning_no_image_selected()
+        radioValue.set(0)
     else:
         for button in losslessAlgorithmButtons:
             button.pack_forget()
@@ -62,7 +65,9 @@ def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Fr
                                                         variable=current_selected_algorithms_category,
                                                         value=1,
                                                         indicatoron=False,
-                                                        command=hide_lossy_show_lossless)
+                                                        command=lambda: hide_lossy_show_lossless(
+                                                            current_selected_algorithms_category
+                                                        ))
     losslessAlgorithmsRadioButton.pack(side=tkinter.LEFT, padx=32, pady=12)
 
     resizeImageButton = tkinter.Radiobutton(mainCategoriesFrame,
@@ -71,7 +76,9 @@ def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Fr
                                             variable=current_selected_algorithms_category,
                                             value=3,
                                             indicatoron=False,
-                                            command=hide_compressions_show_resizes)
+                                            command=lambda: hide_compressions_show_resizes(
+                                                current_selected_algorithms_category
+                                            ))
     resizeImageButton.pack(side=tkinter.LEFT, padx=32, pady=12)
 
     lossyAlgorithmsRadioButton = tkinter.Radiobutton(mainCategoriesFrame,
@@ -80,7 +87,9 @@ def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Fr
                                                      variable=current_selected_algorithms_category,
                                                      value=2,
                                                      indicatoron=False,
-                                                     command=hide_lossless_show_lossy)
+                                                     command=lambda: hide_lossless_show_lossy(
+                                                         current_selected_algorithms_category
+                                                     ))
     lossyAlgorithmsRadioButton.pack(side=tkinter.LEFT, padx=32, pady=12)
     mainCategoriesFrame.pack(expand=1)
 
