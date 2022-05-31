@@ -1,6 +1,6 @@
 from user_interface.warning_popups import warning_no_image_selected
-from main import currentImage as Image
 
+import main
 import tkinter
 
 lossyAlgorithmButtons = []
@@ -18,39 +18,39 @@ def create_algorithm_buttons(mainWindow: tkinter.Frame):
 
 
 def hide_lossy_show_lossless():
-    if Image and Image is not None:
+    if not hasattr(main, "currentImage"):
+        warning_no_image_selected()
+    else:
         for button in lossyAlgorithmButtons:
             button.pack_forget()
         for button in resizeImageButtons:
             button.pack_forget()
         for button in losslessAlgorithmButtons:
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
-    else:
-        warning_no_image_selected()
 
 
 def hide_lossless_show_lossy():
-    if Image and Image is not None:
+    if not hasattr(main, "currentImage"):
+        warning_no_image_selected()
+    else:
         for button in losslessAlgorithmButtons:
             button.pack_forget()
         for button in resizeImageButtons:
             button.pack_forget()
         for button in lossyAlgorithmButtons:
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
-    else:
-        warning_no_image_selected()
 
 
 def hide_compressions_show_resizes():
-    if Image and Image is not None:
+    if not hasattr(main, "currentImage"):
+        warning_no_image_selected()
+    else:
         for button in losslessAlgorithmButtons:
             button.pack_forget()
         for button in lossyAlgorithmButtons:
             button.pack_forget()
         for button in resizeImageButtons:
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
-    else:
-        warning_no_image_selected()
 
 
 def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Frame,
@@ -86,19 +86,17 @@ def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Fr
 
 
 def create_subcategory_for_selected_algorithm(mainWindow: tkinter.Label or tkinter.LabelFrame):
-    lossyJpegButton = tkinter.Button(mainWindow, text="JPEG", width=12)
-    lossyAlgorithmButtons.append(lossyJpegButton)
+    jpegButton = tkinter.Button(mainWindow, text="JPEG", width=12)
+    lossyAlgorithmButtons.append(jpegButton)
     bpgButton = tkinter.Button(mainWindow, text="BGP", width=12)
     lossyAlgorithmButtons.append(bpgButton)
-    tiffButton = tkinter.Button(mainWindow, text="TIFF", width=12)
-    lossyAlgorithmButtons.append(tiffButton)
+    webpButton = tkinter.Button(mainWindow, text="WEBP", width=12)
+    lossyAlgorithmButtons.append(webpButton)
 
     pngButton = tkinter.Button(mainWindow, text="PNG", width=12)
     losslessAlgorithmButtons.append(pngButton)
-    jpegButton = tkinter.Button(mainWindow, text="JPEG-LS", width=12)
-    losslessAlgorithmButtons.append(jpegButton)
-    webpButton = tkinter.Button(mainWindow, text="WEBP", width=12)
-    losslessAlgorithmButtons.append(webpButton)
+    gifButton = tkinter.Button(mainWindow, text="GIF", width=12)
+    losslessAlgorithmButtons.append(gifButton)
     flifButton = tkinter.Button(mainWindow, text="FLIF", width=12)
     losslessAlgorithmButtons.append(flifButton)
 
