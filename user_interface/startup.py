@@ -9,7 +9,7 @@ def start_user_interface():
         mainWindow = tkinter.Tk()
         mainWindow.title("ict-app")
         mainWindow.geometry("800x800")
-        mainWindow.resizable(width=True, height=True)
+        mainWindow.resizable(width=False, height=False)
 
         imageSelectionFrame = tkinter.LabelFrame(mainWindow, height=400, labelanchor=tkinter.NW, text="Image")
         create_image_selector_frame(imageSelectionFrame)
