@@ -13,9 +13,10 @@ def open_filename():
 def open_image(panel: Label):
     filename = open_filename()
     image = Image.open(filename)
-    image = ImageOps.contain(image, (432, 192))
-    image = ImageTk.PhotoImage(image)
 
     main.currentImage = image
 
-    panel.configure(image=main.currentImage)
+    containedImage = ImageOps.contain(image, (432, 192))
+    main.shownImage = ImageTk.PhotoImage(containedImage)
+
+    panel.configure(image=main.shownImage)

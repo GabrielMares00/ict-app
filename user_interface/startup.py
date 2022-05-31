@@ -1,4 +1,3 @@
-import algorithms.file_parser
 import tkinter
 
 from user_interface.algorithm_buttons import create_algorithm_buttons
@@ -24,5 +23,6 @@ def start_user_interface():
         performButton.pack(side=tkinter.BOTTOM, pady=32)
 
         mainWindow.mainloop()
+
     except KeyboardInterrupt:
         print("Program stopped by keyboard")

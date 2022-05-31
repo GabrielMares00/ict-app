@@ -1,3 +1,6 @@
+from user_interface.warning_popups import warning_no_image_selected
+from main import currentImage as Image
+
 import tkinter
 
 lossyAlgorithmButtons = []
@@ -15,30 +18,39 @@ def create_algorithm_buttons(mainWindow: tkinter.Frame):
 
 
 def hide_lossy_show_lossless():
-    for button in lossyAlgorithmButtons:
-        button.pack_forget()
-    for button in resizeImageButtons:
-        button.pack_forget()
-    for button in losslessAlgorithmButtons:
-        button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    if Image and Image is not None:
+        for button in lossyAlgorithmButtons:
+            button.pack_forget()
+        for button in resizeImageButtons:
+            button.pack_forget()
+        for button in losslessAlgorithmButtons:
+            button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    else:
+        warning_no_image_selected()
 
 
 def hide_lossless_show_lossy():
-    for button in losslessAlgorithmButtons:
-        button.pack_forget()
-    for button in resizeImageButtons:
-        button.pack_forget()
-    for button in lossyAlgorithmButtons:
-        button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    if Image and Image is not None:
+        for button in losslessAlgorithmButtons:
+            button.pack_forget()
+        for button in resizeImageButtons:
+            button.pack_forget()
+        for button in lossyAlgorithmButtons:
+            button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    else:
+        warning_no_image_selected()
 
 
 def hide_compressions_show_resizes():
-    for button in losslessAlgorithmButtons:
-        button.pack_forget()
-    for button in lossyAlgorithmButtons:
-        button.pack_forget()
-    for button in resizeImageButtons:
-        button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    if Image and Image is not None:
+        for button in losslessAlgorithmButtons:
+            button.pack_forget()
+        for button in lossyAlgorithmButtons:
+            button.pack_forget()
+        for button in resizeImageButtons:
+            button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    else:
+        warning_no_image_selected()
 
 
 def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Frame,
