@@ -1,4 +1,5 @@
-from user_interface.warning_popups import warning_no_image_selected
+import algorithms.conversions
+from user_interface.popups import warning_no_image_selected
 
 import main
 import tkinter
@@ -8,52 +9,70 @@ losslessAlgorithmButtons = []
 resizeImageButtons = []
 
 
+def is_image_selected():
+    if not hasattr(main, "currentImage"):
+        warning_no_image_selected()
+        return False
+    else:
+        return True
+
+
+def forget_lossy_buttons():
+    for button in lossyAlgorithmButtons:
+        button.pack_forget()
+
+
+def forget_lossless_buttons():
+    for button in losslessAlgorithmButtons:
+        button.pack_forget()
+
+
+def forget_resize_buttons():
+    for button in resizeImageButtons:
+        button.pack_forget()
+
+
 def create_algorithm_buttons(mainWindow: tkinter.Frame):
     currentSelectedAlgorithmsCategory = tkinter.StringVar(mainWindow)
     create_algorithm_category_radio_buttons_for_selection(mainWindow, currentSelectedAlgorithmsCategory)
 
     algorithmsLabelFrame = tkinter.LabelFrame(mainWindow, labelanchor=tkinter.NW, text="Algorithms")
-    create_subcategory_for_selected_algorithm(algorithmsLabelFrame)
+    current_selected_compression_category = tkinter.StringVar(mainWindow)
+    create_subcategory_for_selected_algorithm(algorithmsLabelFrame, current_selected_compression_category)
     algorithmsLabelFrame.pack(side=tkinter.BOTTOM, pady=32)
 
 
 def hide_lossy_show_lossless(radioValue):
-    if not hasattr(main, "currentImage"):
-        warning_no_image_selected()
-        radioValue.set(0)
-    else:
-        for button in lossyAlgorithmButtons:
-            button.pack_forget()
-        for button in resizeImageButtons:
-            button.pack_forget()
+    if is_image_selected():
+        forget_lossy_buttons()
+        forget_resize_buttons()
+
         for button in losslessAlgorithmButtons:
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    else:
+        radioValue.set(0)
 
 
 def hide_lossless_show_lossy(radioValue):
-    if not hasattr(main, "currentImage"):
-        warning_no_image_selected()
-        radioValue.set(0)
-    else:
-        for button in losslessAlgorithmButtons:
-            button.pack_forget()
-        for button in resizeImageButtons:
-            button.pack_forget()
+    if is_image_selected():
+        forget_lossless_buttons()
+        forget_resize_buttons()
+
         for button in lossyAlgorithmButtons:
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    else:
+        radioValue.set(0)
 
 
 def hide_compressions_show_resizes(radioValue):
-    if not hasattr(main, "currentImage"):
-        warning_no_image_selected()
-        radioValue.set(0)
-    else:
-        for button in losslessAlgorithmButtons:
-            button.pack_forget()
-        for button in lossyAlgorithmButtons:
-            button.pack_forget()
+    if is_image_selected():
+        forget_lossless_buttons()
+        forget_lossy_buttons()
+
         for button in resizeImageButtons:
             button.pack(side=tkinter.LEFT, padx=12, pady=8)
+    else:
+        radioValue.set(0)
 
 
 def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Frame,
@@ -94,24 +113,72 @@ def create_algorithm_category_radio_buttons_for_selection(mainWindow: tkinter.Fr
     mainCategoriesFrame.pack(expand=1)
 
 
-def create_subcategory_for_selected_algorithm(mainWindow: tkinter.Label or tkinter.LabelFrame):
-    jpegButton = tkinter.Button(mainWindow, text="JPEG", width=12)
+def create_subcategory_for_selected_algorithm(mainWindow: tkinter.Label or tkinter.LabelFrame,
+                                              currentSelectedAlgorithm: tkinter.StringVar):
+    jpegButton = tkinter.Radiobutton(mainWindow,
+                                     text="JPEG",
+                                     width=12,
+                                     variable=currentSelectedAlgorithm,
+                                     value=1,
+                                     indicatoron=False)
     lossyAlgorithmButtons.append(jpegButton)
-    bpgButton = tkinter.Button(mainWindow, text="BGP", width=12)
+    bpgButton = tkinter.Radiobutton(mainWindow,
+                                    text="BGP",
+                                    width=12,
+                                    variable=currentSelectedAlgorithm,
+                                    value=2,
+                                    indicatoron=False)
     lossyAlgorithmButtons.append(bpgButton)
-    webpButton = tkinter.Button(mainWindow, text="WEBP", width=12)
+    webpButton = tkinter.Radiobutton(mainWindow,
+                                     text="WEBP",
+                                     width=12,
+                                     variable=currentSelectedAlgorithm,
+                                     value=3,
+                                     indicatoron=False)
     lossyAlgorithmButtons.append(webpButton)
 
-    pngButton = tkinter.Button(mainWindow, text="PNG", width=12)
+    pngButton = tkinter.Radiobutton(mainWindow,
+                                    text="PNG",
+                                    width=12,
+                                    variable=currentSelectedAlgorithm,
+                                    value=4,
+                                    indicatoron=False,
+                                    command=algorithms.conversions.PNG_compression)
     losslessAlgorithmButtons.append(pngButton)
-    gifButton = tkinter.Button(mainWindow, text="GIF", width=12)
+    gifButton = tkinter.Radiobutton(mainWindow,
+                                    text="GIF",
+                                    width=12,
+                                    variable=currentSelectedAlgorithm,
+                                    value=5,
+                                    indicatoron=False,
+                                    command=algorithms.conversions.GIF_compression)
     losslessAlgorithmButtons.append(gifButton)
-    flifButton = tkinter.Button(mainWindow, text="FLIF", width=12)
+    flifButton = tkinter.Radiobutton(mainWindow,
+                                     text="FLIF",
+                                     width=12,
+                                     variable=currentSelectedAlgorithm,
+                                     indicatoron=False,
+                                     value=6)
     losslessAlgorithmButtons.append(flifButton)
 
-    resize75 = tkinter.Button(mainWindow, text="75%", width=12)
+    resize75 = tkinter.Radiobutton(mainWindow,
+                                   text="75%",
+                                   width=12,
+                                   variable=currentSelectedAlgorithm,
+                                   value=7,
+                                   indicatoron=False)
     resizeImageButtons.append(resize75)
-    resize50 = tkinter.Button(mainWindow, text="50%", width=12)
+    resize50 = tkinter.Radiobutton(mainWindow,
+                                   text="50%",
+                                   width=12,
+                                   variable=currentSelectedAlgorithm,
+                                   value=8,
+                                   indicatoron=False)
     resizeImageButtons.append(resize50)
-    resizeCustom = tkinter.Button(mainWindow, text="Custom Size", width=12)
+    resizeCustom = tkinter.Radiobutton(mainWindow,
+                                       text="Custom Size",
+                                       width=12,
+                                       variable=currentSelectedAlgorithm,
+                                       value=9,
+                                       indicatoron=False)
     resizeImageButtons.append(resizeCustom)

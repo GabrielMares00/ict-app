@@ -1,5 +1,8 @@
 import tkinter
 
+import main
+
+from algorithms.conversions import save_image
 from user_interface.algorithm_buttons import create_algorithm_buttons
 from user_interface.image_selector import create_image_selector_frame
 
@@ -19,7 +22,10 @@ def start_user_interface():
         create_algorithm_buttons(selectionFrame)
         selectionFrame.pack(side=tkinter.TOP, pady=32)
 
-        performButton = tkinter.Button(mainWindow, width=18, text="Perform Compression")
+        performButton = tkinter.Button(mainWindow,
+                                       width=18,
+                                       text="Perform Compression",
+                                       command=save_image)
         performButton.pack(side=tkinter.BOTTOM, pady=32)
 
         mainWindow.mainloop()

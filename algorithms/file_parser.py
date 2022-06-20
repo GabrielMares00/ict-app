@@ -1,7 +1,9 @@
+import PIL.Image
 from PIL import Image, ImageOps, ImageTk
 from tkinter import filedialog, Label, Tk
 
 import main
+import os
 
 
 def open_filename():
