@@ -2,11 +2,9 @@ import user_interface.startup as UI
 
 currentImage = None
 shownImage = None
-imageResultExt = None
 
 
 def start_program():
-    global imageResultExt
     global currentImage
     global shownImage
 

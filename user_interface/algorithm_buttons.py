@@ -120,7 +120,8 @@ def create_subcategory_for_selected_algorithm(mainWindow: tkinter.Label or tkint
                                      width=12,
                                      variable=currentSelectedAlgorithm,
                                      value=1,
-                                     indicatoron=False)
+                                     indicatoron=False,
+                                     command=algorithms.conversions.JPEG_compression)
     lossyAlgorithmButtons.append(jpegButton)
     bpgButton = tkinter.Radiobutton(mainWindow,
                                     text="BGP",
@@ -134,7 +135,8 @@ def create_subcategory_for_selected_algorithm(mainWindow: tkinter.Label or tkint
                                      width=12,
                                      variable=currentSelectedAlgorithm,
                                      value=3,
-                                     indicatoron=False)
+                                     indicatoron=False,
+                                     command=algorithms.conversions.WebP_compression)
     lossyAlgorithmButtons.append(webpButton)
 
     pngButton = tkinter.Radiobutton(mainWindow,
@@ -153,13 +155,14 @@ def create_subcategory_for_selected_algorithm(mainWindow: tkinter.Label or tkint
                                     indicatoron=False,
                                     command=algorithms.conversions.GIF_compression)
     losslessAlgorithmButtons.append(gifButton)
-    flifButton = tkinter.Radiobutton(mainWindow,
-                                     text="FLIF",
+    tiffButton = tkinter.Radiobutton(mainWindow,
+                                     text="TIFF",
                                      width=12,
                                      variable=currentSelectedAlgorithm,
                                      indicatoron=False,
-                                     value=6)
-    losslessAlgorithmButtons.append(flifButton)
+                                     value=6,
+                                     command=algorithms.conversions.TIFF_compression)
+    losslessAlgorithmButtons.append(tiffButton)
 
     resize75 = tkinter.Radiobutton(mainWindow,
                                    text="75%",
