@@ -14,7 +14,7 @@ def check_and_perform_compression():
     global imageResultExt
 
     match imageResultExt:
-        case ".png" | "gif" | ".tiff":
+        case ".png" | ".gif" | ".tiff":
             perform_convert()
         case ".jpeg" | ".webp":
             perform_convert_rgb()
