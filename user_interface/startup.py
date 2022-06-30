@@ -2,7 +2,7 @@ import tkinter
 
 import main
 
-from algorithms.conversions import save_image
+from algorithms.image_operations import save_image
 from user_interface.algorithm_buttons import create_algorithm_buttons
 from user_interface.image_selector import create_image_selector_frame
 

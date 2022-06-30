@@ -1,4 +1,4 @@
-import algorithms.conversions
+import algorithms.image_operations
 from user_interface.popups import warning_no_image_selected
 
 import main
@@ -121,67 +121,63 @@ def create_subcategory_for_selected_algorithm(mainWindow: tkinter.Label or tkint
                                      variable=currentSelectedAlgorithm,
                                      value=1,
                                      indicatoron=False,
-                                     command=algorithms.conversions.JPEG_compression)
+                                     command=algorithms.image_operations.JPEG_compression)
     lossyAlgorithmButtons.append(jpegButton)
-    bpgButton = tkinter.Radiobutton(mainWindow,
-                                    text="BGP",
-                                    width=12,
-                                    variable=currentSelectedAlgorithm,
-                                    value=2,
-                                    indicatoron=False)
-    lossyAlgorithmButtons.append(bpgButton)
     webpButton = tkinter.Radiobutton(mainWindow,
                                      text="WEBP",
                                      width=12,
                                      variable=currentSelectedAlgorithm,
-                                     value=3,
+                                     value=2,
                                      indicatoron=False,
-                                     command=algorithms.conversions.WebP_compression)
+                                     command=algorithms.image_operations.WebP_compression)
     lossyAlgorithmButtons.append(webpButton)
 
     pngButton = tkinter.Radiobutton(mainWindow,
                                     text="PNG",
                                     width=12,
                                     variable=currentSelectedAlgorithm,
-                                    value=4,
+                                    value=3,
                                     indicatoron=False,
-                                    command=algorithms.conversions.PNG_compression)
+                                    command=algorithms.image_operations.PNG_compression)
     losslessAlgorithmButtons.append(pngButton)
     gifButton = tkinter.Radiobutton(mainWindow,
                                     text="GIF",
                                     width=12,
                                     variable=currentSelectedAlgorithm,
-                                    value=5,
+                                    value=4,
                                     indicatoron=False,
-                                    command=algorithms.conversions.GIF_compression)
+                                    command=algorithms.image_operations.GIF_compression)
     losslessAlgorithmButtons.append(gifButton)
     tiffButton = tkinter.Radiobutton(mainWindow,
                                      text="TIFF",
                                      width=12,
                                      variable=currentSelectedAlgorithm,
                                      indicatoron=False,
-                                     value=6,
-                                     command=algorithms.conversions.TIFF_compression)
+                                     value=5,
+                                     command=algorithms.image_operations.TIFF_compression)
     losslessAlgorithmButtons.append(tiffButton)
 
     resize75 = tkinter.Radiobutton(mainWindow,
                                    text="75%",
                                    width=12,
                                    variable=currentSelectedAlgorithm,
-                                   value=7,
-                                   indicatoron=False)
+                                   value=6,
+                                   indicatoron=False,
+                                   command=lambda: algorithms.image_operations.resize_by_75(main.currentImage.size))
     resizeImageButtons.append(resize75)
     resize50 = tkinter.Radiobutton(mainWindow,
                                    text="50%",
                                    width=12,
                                    variable=currentSelectedAlgorithm,
-                                   value=8,
-                                   indicatoron=False)
+                                   value=7,
+                                   indicatoron=False,
+                                   command=lambda: algorithms.image_operations.resize_by_50(main.currentImage.size))
     resizeImageButtons.append(resize50)
-    resizeCustom = tkinter.Radiobutton(mainWindow,
-                                       text="Custom Size",
-                                       width=12,
-                                       variable=currentSelectedAlgorithm,
-                                       value=9,
-                                       indicatoron=False)
-    resizeImageButtons.append(resizeCustom)
+    resize25 = tkinter.Radiobutton(mainWindow,
+                                   text="25%",
+                                   width=12,
+                                   variable=currentSelectedAlgorithm,
+                                   value=8,
+                                   indicatoron=False,
+                                   command=lambda: algorithms.image_operations.resize_by_25(main.currentImage.size))
+    resizeImageButtons.append(resize25)
