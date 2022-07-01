@@ -29,20 +29,22 @@ def save_image():
     dir_name = filedialog.askdirectory()
     os.chdir(dir_name)
 
+    newFileName = popups.input_new_filename()
+
     startTime = time.time()
 
     if imageResultExt == "" and main.currentImage is not None:
         currentFormat = main.currentImage.format
         main.currentImage = main.currentImage.resize(newSize, PIL.Image.ANTIALIAS)
-        main.currentImage.save("result" + "." + currentFormat.lower(), optimize=True)
+        main.currentImage.save(newFileName + "." + currentFormat.lower(), optimize=True)
     elif main.currentImage is not None:
         check_and_perform_conversion()
-        if imageResultExt == ".jpeg":
-            main.currentImage.save("result" + imageResultExt, quality=qualityFactor, optimize=True)
+        if imageResultExt == ".jpeg" or imageResultExt == ".webp":
+            main.currentImage.save(newFileName + imageResultExt, quality=qualityFactor, optimize=True)
         elif imageResultExt == ".tiff":
-            main.currentImage.save("result" + imageResultExt, compression="tiff_lzw", optimize=True)
+            main.currentImage.save(newFileName + imageResultExt, compression="tiff_lzw", optimize=True)
         else:
-            main.currentImage.save("result" + imageResultExt, optimize=True)
+            main.currentImage.save(newFileName + imageResultExt, optimize=True)
     else:
         popups.internal_error_conversion_lost_in_program()
 
@@ -79,8 +81,9 @@ def JPEG_compression():
 
 
 def WebP_compression():
-    global imageResultExt
+    global imageResultExt, qualityFactor
     imageResultExt = ".webp"
+    qualityFactor = 75
 
 
 def resize_by_75(size):
